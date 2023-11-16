@@ -1,0 +1,16 @@
+
+### USERS
+GET http://localhost:1234/signup
+###
+GET http://localhost:1234/signup/4
+### 
+POST http://localhost:1234/signup
+Content-Type: application/json
+
+{
+  "name":"juan",
+  "email":"juan@mail.co",
+  "password": "111111"
+}
+
+###
