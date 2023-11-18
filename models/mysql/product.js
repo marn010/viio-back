@@ -1,3 +1,4 @@
+import { response } from 'express'
 import mysql from 'mysql2/promise'
 
 const DEFAULT_CONFIG = {
@@ -127,5 +128,39 @@ export class UserModel{
       `SELECT name, email, password, id FROM users WHERE name = ? and email= ?;`,[name,email]
     )
     return users[0]
+  }
+  
+}
+export class LoginModel{
+  static async getUser ({ input }) {
+    const{
+      email,
+      password
+    } = input
+
+    const [user] = await connection.query(
+      `SELECT email, password FROM users WHERE email = ? AND password = ?;`,[email,password]
+    )
+    if (user.length ==0){
+      return null
+    }
+    return user
+  }
+  static async getUserByName ({email}){
+    const [user] = await connection.query(
+      `SELECT email, password,name FROM users WHERE email = ?;`,[email]
+    )
+    if (user.length==0){
+      return null
+    }
+    return user[0]
+  }
+}
+export class DataModel{
+  static async getData({}){
+  const data =await fetch("https://dummyjson.com/carts")
+    //.then(response => response.json())
+    //console.log("envio");
+    return data.json()
   }
 }

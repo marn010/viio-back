@@ -1,5 +1,5 @@
 import { createApp } from "./app.js";
 
-import { ProductModel, UserModel } from "./models/mysql/product.js";
+import { DataModel, LoginModel, ProductModel, UserModel } from "./models/mysql/product.js";
 
-createApp({ productModel: ProductModel, userModel: UserModel })
+createApp({ productModel: ProductModel, userModel: UserModel, loginModel: LoginModel, dataModel:DataModel})

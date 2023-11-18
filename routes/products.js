@@ -2,6 +2,9 @@ import { Router } from "express";
 
 import { ProductController } from "../controllers/products.js";
 import { UserController } from "../controllers/products.js";
+import { LoginController } from '../controllers/products.js';
+import { DataController } from '../controllers/products.js';
+
 
 export const createProductRouter = ({ productModel }) =>{
   const productsRouter = Router()
@@ -30,4 +33,22 @@ export const createUserRouter= ({userModel}) =>{
 
 
   return userRouter
+}
+export const loginUserRouter= ({ loginModel}) =>{
+  const loginRouter = Router()
+
+  const loginController = new LoginController({loginModel})
+
+  loginRouter.post('/', loginController.getUser)
+  //loginRouter.post('/', loginController.getUserByName)
+
+  return loginRouter
+}
+export const dataRouter = ({ dataModel})=>{
+  const dataRouter = Router()
+
+  const dataController = new DataController({dataModel})
+
+  dataRouter.get('/', dataController.getData)
+  return dataRouter
 }
