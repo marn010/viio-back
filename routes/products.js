@@ -1,25 +1,10 @@
 import { Router } from "express";
 
-import { ProductController } from "../controllers/products.js";
+
 import { UserController } from "../controllers/products.js";
 import { LoginController } from '../controllers/products.js';
 import { DataController } from '../controllers/products.js';
 
-
-export const createProductRouter = ({ productModel }) =>{
-  const productsRouter = Router()
-  
-  const productController = new ProductController({ productModel})
-  
-  productsRouter.get('/',productController.getAll)
-  productsRouter.post('/', productController.create)
-  
-  productsRouter.get('/:id', productController.getById)
-  productsRouter.delete('/:id', productController.delete)
-  productsRouter.patch('/:id', productController.update)
-
-  return productsRouter
-}
 
 export const createUserRouter= ({userModel}) =>{
   const userRouter = Router()
