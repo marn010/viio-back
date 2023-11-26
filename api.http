@@ -1,15 +1,17 @@
 
 ### USERS
 GET http://localhost:1234/signup
+
 ###
 GET http://localhost:1234/signup/4
-### 
+
+### CREATE
 POST http://localhost:1234/signup
 Content-Type: application/json
 
 {
-  "name":"juan",
-  "email":"juan@mail.co",
+  "name":"juan2",
+  "email":"juan2@mail.co",
   "password": "111111"
 }
 
@@ -19,7 +21,7 @@ Content-Type: application/json
 
 {
   "email":"juan@mail.co",
-  "password":"111111"
+  "password":"11111"
 }
 ### DATA
 GET http://localhost:1234/data

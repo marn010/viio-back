@@ -5,7 +5,7 @@ const DEFAULT_CONFIG = {
   host: 'localhost',
   user: 'root',
   port: 3306,
-  password: '',
+  password: 'inuyasha010',
   database: 'signup'
 }
 const connectionString = DEFAULT_CONFIG
@@ -17,7 +17,11 @@ export class UserModel{
     const [users] = await connection.query(
       'SELECT id, name, email FROM users '
     )
-    return users
+    if (users.length===0) {
+      return 
+    } else {
+      return users
+    }
   }
   static async getById ({ id }) {
     const [users] = await connection.query(
@@ -34,16 +38,31 @@ export class UserModel{
       email,
       password
     } = input
+    try{
+      const [validateUser] = await connection.query(
+        `SELECT name FROM users WHERE name = ?;`,[name]
+      )
+      console.log("validate:",validateUser);
+      if(validateUser.length>0){
+        throw new Error("Username already exists")
+      }
+      
+    }catch (e){
+        //console.log(e.name + " " + e.message)
+        return e.message
+    }
 
-    const[uuidResult] = await connection.query('SELECT UUID() uuid;')
-    const [{ uuid}] = uuidResult
 
     try{
-      await connection.query(
+      const newUser = await connection.query(
         `INSERT INTO users (name, email, password) VALUES (?,?,?);`,[name, email, password]
       )
+      
     } catch (e) {
-      throw new Error('Error creating user')
+      
+      console.log("Fallo");
+      //throw new Error('Error creating user')
+      //console.log(e.name+" "+ e.message);
     }
     const [users] = await connection.query(
       `SELECT name, email, password, id FROM users WHERE name = ? and email= ?;`,[name,email]

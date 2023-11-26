@@ -20,7 +20,13 @@ export class UserController {
     }
     result.data.password = bcrypt.hashSync(result.data.password,8)
     const newUser = await this.userModel.createUser({input: result.data})
-    res.status(201).json(newUser)
+    console.log("new: ",newUser);
+    if(newUser.name){
+      res.status(200).json(newUser)
+    }else{
+      res.status(400).json(newUser)
+    }
+    
   }
   getById = async (req,res) =>{
     const { id } = req.params
